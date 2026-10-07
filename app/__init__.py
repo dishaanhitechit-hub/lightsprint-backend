@@ -16,7 +16,7 @@ def create_app():
     bcrypt.init_app(app)
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
 
-    from .models import User, Project, ProjectMember, Sprint, Task, Tag, Comment  # noqa: F401
+    from .models import User, Project, ProjectMember, Sprint, UserStory, Task, Tag, Comment, TimeLog  # noqa
 
     from .modules.auth.routes import auth_bp
     from .modules.projects.routes import projects_bp
@@ -24,6 +24,7 @@ def create_app():
     from .modules.tasks.routes import tasks_bp
     from .modules.comments.routes import comments_bp
     from .modules.users.routes import users_bp
+    from .modules.stories.routes import stories_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(projects_bp)
@@ -31,6 +32,7 @@ def create_app():
     app.register_blueprint(tasks_bp)
     app.register_blueprint(comments_bp)
     app.register_blueprint(users_bp)
+    app.register_blueprint(stories_bp)
 
     @app.get("/api/health")
     def health():
